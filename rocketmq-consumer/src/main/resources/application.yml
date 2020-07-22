@@ -1,0 +1,14 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: rockermq-consumer
+
+
+
+rocketmq:
+  name-server: 120.24.59.39:9876
+  producer:
+    group: ${spring.application.name}
+    send-message-timeout: 10000
