@@ -20,10 +20,3 @@ rocketmq:
     retry-times-when-send-async-failed: 0
     retry-times-when-send-failed: 2
 
-
-mq:
-  topic:
-    goods-buy:
-      name: topic_buy_goods
-      tags: tags_buy_goods
-      keys: keys_buy_goods
