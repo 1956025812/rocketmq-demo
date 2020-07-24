@@ -1,4 +1,4 @@
-package com.yss.mq.producer.config;
+package com.yss.mq.consumer.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,14 +16,15 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class MqConfig {
 
-    @Value("${mq.topic.goods-buy.name}")
-    private String mqTopicGoodsBuyName;
+    @Value("${mq.topic.name}")
+    private String mqTopicName;
 
-    @Value("${mq.topic.goods-buy.tags}")
-    private String mqTopicGoodsBuyTags;
+    @Value("${mq.topic.tag}")
+    private String mqTopicTag;
 
-    @Value("${mq.topic.goods-buy.keys}")
-    private String mqTopicGoodsBuyKeys;
+    @Value("${mq.topic.keys}")
+    private String mqTopicKeys;
+
 
 
 }

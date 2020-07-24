@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: rockermq-producer
+    name: rocketmq-producer
 
 
 
@@ -23,6 +23,7 @@ rocketmq:
 
 mq:
   topic:
-    name: topicA001
-    tag: tagA001
-    keys: keysA001
+    goods-buy:
+      name: topic_buy_goods
+      tags: tags_buy_goods
+      keys: keys_buy_goods

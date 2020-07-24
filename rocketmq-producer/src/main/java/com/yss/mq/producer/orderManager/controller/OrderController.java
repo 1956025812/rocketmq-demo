@@ -2,7 +2,7 @@ package com.yss.mq.producer.orderManager.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yss.mq.producer.config.MqConfig;
-import com.yss.mq.producer.orderManager.entity.GoodsOrder;
+import com.yss.mq.producer.orderManager.entity.Goods;
 import com.yss.mq.producer.orderManager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -35,15 +35,15 @@ public class OrderController {
 
     @GetMapping("/send")
     public void sendMqMessage() {
-        log.info("topic: {}, tag: {}, keys: {}", mqConfig.getMqTopicName(), mqConfig.getMqTopicTag(), mqConfig.getMqTopicKeys());
-        GoodsOrder goodsOrder = new GoodsOrder(1, "goodOrder001");
+        log.info("topic: {}, tag: {}, keys: {}", mqConfig.getMqTopicGoodsBuyName(), mqConfig.getMqTopicGoodsBuyTags(), mqConfig.getMqTopicGoodsBuyKeys());
+        Goods goods = new Goods(1, "goods001");
 
         // 同步发送：  topic:tags
-        this.rocketMQTemplate.syncSend(MqUtil.makeupDestination(this.mqConfig.getMqTopicName(), this.mqConfig.getMqTopicTag()), JSONObject.toJSONString(goodsOrder));
+        this.rocketMQTemplate.syncSend(MqUtil.makeupDestination(this.mqConfig.getMqTopicGoodsBuyName(), this.mqConfig.getMqTopicGoodsBuyTags()), JSONObject.toJSONString(goods));
 
         // 同步发送： topic:tags 和 keys
-        Message<GoodsOrder> message1 = MessageBuilder.withPayload(goodsOrder).setHeader(MqUtil.KEYS, this.mqConfig.getMqTopicKeys()).build();
-        this.rocketMQTemplate.syncSend(MqUtil.makeupDestination(this.mqConfig.getMqTopicName(), this.mqConfig.getMqTopicTag()), message1);
+        Message<Goods> message1 = MessageBuilder.withPayload(goods).setHeader(MqUtil.KEYS, this.mqConfig.getMqTopicGoodsBuyKeys()).build();
+        this.rocketMQTemplate.syncSend(MqUtil.makeupDestination(this.mqConfig.getMqTopicGoodsBuyName(), this.mqConfig.getMqTopicGoodsBuyTags()), message1);
 
 
     }
