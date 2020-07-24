@@ -20,7 +20,6 @@
             <version>2.3.1.RELEASE</version>
         </dependency>
 
-
         <!-- rocket-mq -->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
@@ -28,6 +27,12 @@
             <version>2.1.0</version>
         </dependency>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
 
     </dependencies>
 

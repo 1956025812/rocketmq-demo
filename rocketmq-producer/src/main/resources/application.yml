@@ -1,5 +1,7 @@
 server:
   port: 8888
+  servlet:
+    context-path: /rocketmq-producer
 
 spring:
   application:
@@ -12,3 +14,15 @@ rocketmq:
   producer:
     group: ${spring.application.name}
     send-message-timeout: 10000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-next-server: true
+    retry-times-when-send-async-failed: 0
+    retry-times-when-send-failed: 2
+
+
+mq:
+  topic:
+    name: topicA001
+    tag: tagA001
+    keys: keysA001
