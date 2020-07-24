@@ -13,9 +13,3 @@ rocketmq:
     group: ${spring.application.name}
     send-message-timeout: 10000
 
-
-mq:
-  topic:
-    name: topicA001
-    tag: tagA001
-    keys: keysA001
