@@ -62,7 +62,7 @@ public class MqProducerTest {
 
         // 同步发送顺序消息： topic
         for (int i = 1; i <= 5; i++) {
-            this.rocketMQTemplate.syncSendOrderly("topic1", String.format("同步发送顺序消息：%s,指定topic1", i), "orderMsg-topic1");
+            this.rocketMQTemplate.syncSendOrderly("topic1", String.format("同步发送1-5, 指定topic1, 顺序消息：%s,", i), "orderMsg-topic1");
         }
 
     }
