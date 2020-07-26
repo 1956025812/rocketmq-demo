@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "topic_buy_goods")
-public class BuyGoodsListener implements RocketMQListener<String> {
+@RocketMQMessageListener(consumerGroup = "rocketmq-producer1", topic = "topic_buy_goods")
+public class SendOneWayListener implements RocketMQListener<String> {
 
     @Override
     public void onMessage(String message) {
