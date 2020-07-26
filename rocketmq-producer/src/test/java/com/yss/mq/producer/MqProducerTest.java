@@ -61,8 +61,8 @@ public class MqProducerTest {
         // 同步发送延时消息 TODO
 
         // 同步发送顺序消息： topic
-        for (int i = 1; i < 5; i++) {
-            this.rocketMQTemplate.convertAndSend("topic1", String.format("同步发送顺序消息：%s,指定topic1", i));
+        for (int i = 1; i <= 5; i++) {
+            this.rocketMQTemplate.syncSendOrderly("topic1", String.format("同步发送顺序消息：%s,指定topic1", i), "orderMsg-topic1");
         }
 
     }
