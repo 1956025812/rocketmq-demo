@@ -2,6 +2,7 @@ package com.yss.mq.producer.ordermanager.util;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,32 +38,6 @@ public class MqUtil {
 
 
     /**
-     * sendOneWay发送，只指定topic
-     *
-     * @param content 发送内容
-     */
-    public void sendOneWay(String content) {
-        Message message = new Message(this.springApplicationName, content.getBytes());
-        log.info("发送sendOneWay消息，topic为：{}， message为：{}", this.springApplicationName, JSONObject.toJSONString(message));
-        this.rocketMQTemplate.sendOneWay(this.springApplicationName, message);
-    }
-
-
-    /**
-     * sendOneWay发送, 指定topic和tags
-     *
-     * @param tags    tags
-     * @param content 内容
-     */
-    public void sendOneWay(String tags, String content) {
-        Message message = new Message(this.springApplicationName, tags, content.getBytes());
-        String destination = String.format("%s:%s", this.springApplicationName, tags);
-        log.info("发送sendOneWay消息，destination为：{}， message为：{}", destination, JSONObject.toJSONString(message));
-        this.rocketMQTemplate.sendOneWay(destination, message);
-    }
-
-
-    /**
      * sendOneWay发送, 指定topic和tags和keys
      *
      * @param tags    tags
@@ -72,8 +47,24 @@ public class MqUtil {
     public void sendOneWay(String tags, String keys, String content) {
         Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
         String destination = String.format("%s:%s", this.springApplicationName, tags);
-        log.info("发送sendOneWay消息，destination为：{}，keys为：{}， message为：{}", destination, keys, JSONObject.toJSONString(message));
+        log.info("发送sendOneWay消息，destination为：{}，keys为：{}， message为：{}, content为: {}", destination, keys, JSONObject.toJSONString(message), content);
         this.rocketMQTemplate.sendOneWay(destination, message);
+    }
+
+
+    /**
+     * syncSend发送, 指定topic和tags和keys
+     *
+     * @param tags    tags
+     * @param keys    keys
+     * @param content 内容
+     * @return SendResult
+     */
+    public SendResult syncSend(String tags, String keys, String content) {
+        Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        log.info("发送syncSend消息，destination为：{}，keys为：{}， message为：{}, content: {}", destination, keys, JSONObject.toJSONString(message), content);
+        return this.rocketMQTemplate.syncSend(destination, message);
     }
 
 

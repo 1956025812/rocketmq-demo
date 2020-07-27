@@ -22,6 +22,6 @@ public class RocketmqProducerListener implements RocketMQListener<Message> {
 
     @Override
     public void onMessage(Message message) {
-        log.info("收到的message对象为：{}， body为：{}", JSONObject.toJSONString(message), new String(message.getBody()));
+        log.info("收到的message对象为：{}， body为：{}", message.toString(), new String(message.getBody()));
     }
 }

@@ -13,8 +13,10 @@ public enum MqEnum {
     /**
      *
      */
-    SEND_ONE_WAY("send_one_way"),
-    SEND_ONE_WAY_WITH_KEYS("send_one_way", "send_one_way_keys"),
+    SEND_ONE_WAY("tags_send_one_way"),
+    SEND_ONE_WAY_WITH_KEYS("tags_send_one_way", "keys_send_one_way"),
+    SYNC_SEND("tags_sync_send"),
+    SYNC_SEND_WITH_KEYS("tags_sync_send", "keys_sync_send"),
     ;
 
 

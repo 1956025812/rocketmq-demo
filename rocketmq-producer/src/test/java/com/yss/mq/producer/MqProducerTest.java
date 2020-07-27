@@ -1,8 +1,10 @@
 package com.yss.mq.producer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yss.mq.producer.constant.MqEnum;
 import com.yss.mq.producer.ordermanager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,9 +34,17 @@ public class MqProducerTest {
      */
     @Test
     public void testSendOneWay() {
-        this.mqUtil.sendOneWay("sendOneWay消息：使用默认topic");
-        this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY.getTags(), "sendOneWay消息：使用默认topic并指定tags");
         this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), "sendOneWay消息：使用默认topic并指定topic和keys");
+    }
+
+
+    /**
+     * syncSend方式
+     */
+    @Test
+    public void testSyncSend() {
+        SendResult sendResult = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getTags(), "syncSend消息：使用默认topic并指定topic和keys");
+        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
     }
 
 
