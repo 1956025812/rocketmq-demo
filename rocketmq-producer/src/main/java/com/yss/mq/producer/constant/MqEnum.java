@@ -11,25 +11,25 @@ package com.yss.mq.producer.constant;
 public enum MqEnum {
 
     /**
-     * 购买商品
+     *
      */
-    BUY_GOODS("topic_buy_goods", "tags_buy_goods", "keys_buy_goods"),
+    SEND_ONE_WAY("send_one_way"),
+    SEND_ONE_WAY_WITH_KEYS("send_one_way", "send_one_way_keys"),
     ;
 
 
-    private String topic;
     private String tags;
     private String keys;
 
-    MqEnum(String topic, String tags, String keys) {
-        this.topic = topic;
+    MqEnum(String tags) {
+        this.tags = tags;
+    }
+
+    MqEnum(String tags, String keys) {
         this.tags = tags;
         this.keys = keys;
     }
 
-    public String getTopic() {
-        return topic;
-    }
 
     public String getTags() {
         return tags;
