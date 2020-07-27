@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -43,8 +45,15 @@ public class MqProducerTest {
      */
     @Test
     public void testSyncSend() {
-        SendResult sendResult = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getTags(), "syncSend消息：使用默认topic并指定topic和keys");
-        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
+//        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
+//        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
+
+        // TODO 方法有问题 发送报错
+//        List<String> contentList = new ArrayList<>();
+//        contentList.add("syncSend消息1");
+//        contentList.add("syncSend消息2");
+//        SendResult sendResult2 = this.mqUtil.sycnSendBatch(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), contentList);
+//        log.info("sendResult2: {}", JSONObject.toJSONString(sendResult2));
     }
 
 

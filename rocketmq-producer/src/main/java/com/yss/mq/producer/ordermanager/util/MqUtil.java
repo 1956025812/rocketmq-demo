@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -64,6 +66,31 @@ public class MqUtil {
         log.info("发送syncSend消息，destination为：{}，keys为：{}， message为：{}, content: {}", destination, keys, JSONObject.toJSONString(message), content);
         return this.rocketMQTemplate.syncSend(destination, message);
     }
+
+
+    /**
+     * syncSend批量发送, 指定topic和tags和keys
+     *
+     * @param tags        tags
+     * @param keys        keys
+     * @param contentList 内容集合
+     * @return SendResult
+     */
+    public SendResult sycnSendBatch(String tags, String keys, List<String> contentList) {
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        List<Message> messageList = new ArrayList<>(contentList.size());
+        contentList.forEach(eachContent -> {
+            Message message = new Message(this.springApplicationName, tags, keys, eachContent.getBytes());
+            messageList.add(message);
+        });
+        log.info("发送syncSend消息，destination为：{}，keys为：{}， messageList为：{}, contentList为: {}", destination, keys,
+                JSONObject.toJSONString(messageList), JSONObject.toJSONString(contentList));
+        return this.rocketMQTemplate.syncSend(destination, messageList);
+    }
+
+
+
+
 
 
 }
