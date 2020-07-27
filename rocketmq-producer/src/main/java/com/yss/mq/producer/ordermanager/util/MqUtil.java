@@ -27,8 +27,6 @@ import javax.annotation.Resource;
 @Slf4j
 public class MqUtil {
 
-    private static final String KEYS = "KEYS";
-
     @Value("${spring.application.name}")
     private String springApplicationName;
 
