@@ -32,6 +32,8 @@ public class MqUtil {
     @Value("${spring.application.name}")
     private String springApplicationName;
 
+    private static String KEYS = "KEYS";
+
 
     @Resource
     private RocketMQTemplate rocketMQTemplate;
@@ -45,7 +47,8 @@ public class MqUtil {
      * @param content 内容
      */
     public void sendOneWay(String tags, String keys, String content) {
-        Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
+        Message message = new Message(this.springApplicationName, tags, content.getBytes());
+        message.getProperties().put(KEYS, keys);
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         log.info("发送sendOneWay消息，destination为：{}，keys为：{}， message为：{}, content为: {}", destination, keys, JSONObject.toJSONString(message), content);
         this.rocketMQTemplate.sendOneWay(destination, message);
@@ -61,7 +64,8 @@ public class MqUtil {
      * @return SendResult
      */
     public SendResult syncSend(String tags, String keys, String content) {
-        Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
+        Message message = new Message(this.springApplicationName, tags, content.getBytes());
+        message.getProperties().put(KEYS, keys);
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         log.info("发送syncSend消息，destination为：{}，keys为：{}， message为：{}, content: {}", destination, keys, JSONObject.toJSONString(message), content);
         return this.rocketMQTemplate.syncSend(destination, message);
@@ -87,10 +91,6 @@ public class MqUtil {
                 JSONObject.toJSONString(messageList), JSONObject.toJSONString(contentList));
         return this.rocketMQTemplate.syncSend(destination, messageList);
     }
-
-
-
-
 
 
 }

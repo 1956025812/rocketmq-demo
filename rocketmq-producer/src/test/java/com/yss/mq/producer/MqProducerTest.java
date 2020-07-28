@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- *
+ * 消息生产者测试类
  * </p>
  *
  * @author DuXueBo
@@ -45,15 +45,14 @@ public class MqProducerTest {
      */
     @Test
     public void testSyncSend() {
-//        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
-//        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
+        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
+        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
 
-        // TODO 方法有问题 发送报错
-//        List<String> contentList = new ArrayList<>();
-//        contentList.add("syncSend消息1");
-//        contentList.add("syncSend消息2");
-//        SendResult sendResult2 = this.mqUtil.sycnSendBatch(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), contentList);
-//        log.info("sendResult2: {}", JSONObject.toJSONString(sendResult2));
+        List<String> contentList = new ArrayList<>();
+        contentList.add("syncSend消息1");
+        contentList.add("syncSend消息2");
+        SendResult sendResult2 = this.mqUtil.sycnSendBatch(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), contentList);
+        log.info("sendResult2: {}", JSONObject.toJSONString(sendResult2));
     }
 
 

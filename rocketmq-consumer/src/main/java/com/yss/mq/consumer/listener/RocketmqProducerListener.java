@@ -2,13 +2,15 @@ package com.yss.mq.consumer.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * rocketmq-producer项目的监听器
+ * rocketMq-producer项目的监听器
+ * 官方建议： 一个group对应一个topic  子业务用tags和keys做区分
  * </p>
  *
  * @author DuXueBo
@@ -17,10 +19,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer")
-public class RocketmqProducerListener implements RocketMQListener<Message> {
+public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
 
     @Override
-    public void onMessage(Message message) {
-        log.info("收到的message对象为：{}， body为：{}", message.toString(), new String(message.getBody()));
+    public void onMessage(MessageExt messageExt) {
+        log.info("收到的message对象为：{}， body为：{}", messageExt.toString(), new String(messageExt.getBody()));
     }
+
+
 }
