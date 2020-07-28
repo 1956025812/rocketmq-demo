@@ -32,9 +32,6 @@ public class MqUtil {
     @Value("${spring.application.name}")
     private String springApplicationName;
 
-    private static String KEYS = "KEYS";
-
-
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
