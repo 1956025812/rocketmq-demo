@@ -46,4 +46,25 @@ public class AsyncController {
     }
 
 
+    /**
+     * 测试路径： http://localhost:8888/rocketmq-producer/async/sendAsyncSendOrderly
+     */
+    @RequestMapping("/sendAsyncSendOrderly")
+    public void sendAsyncSendOrderly() {
+        for (int i = 1; i <= 5; i++) {
+            this.mqUtil.asyncSendOrderly("tags002", String.format("异步消息: %s", i), new SendCallback() {
+                @Override
+                public void onSuccess(SendResult sendResult) {
+                    log.info("发送异步消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
+                }
+
+                @Override
+                public void onException(Throwable throwable) {
+                    log.error("发送异步消息失败", throwable);
+                }
+            });
+        }
+    }
+
+
 }

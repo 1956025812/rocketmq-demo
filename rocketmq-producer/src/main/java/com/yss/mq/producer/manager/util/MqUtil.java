@@ -94,6 +94,7 @@ public class MqUtil {
 
     /**
      * syncSend顺序发送, 指定topic和tags和keys
+     * TODO 始终第一次发送是乱序的 后面就是好的
      *
      * @param tags    tags
      * @param keys    keys
@@ -125,4 +126,24 @@ public class MqUtil {
                 JSONObject.toJSONString(message), JSONObject.toJSONString(content));
         this.rocketMQTemplate.asyncSend(destination, message, sendCallback);
     }
+
+
+    /**
+     * asyncSendOrderly发送
+     * TODO 始终第一次发送是乱序的 后面就是好的
+     *
+     * @param tags         tags
+     * @param content      内容
+     * @param sendCallback 回调事件
+     */
+    public void asyncSendOrderly(String tags, String content, SendCallback sendCallback) {
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        Message message = new Message(this.springApplicationName, tags, content.getBytes());
+        message.getProperties().put("content", content);
+        log.info("发送asyncSendOrderly消息，destination为：{}，message为：{}, content为: {}", destination,
+                JSONObject.toJSONString(message), JSONObject.toJSONString(content));
+        this.rocketMQTemplate.asyncSendOrderly(destination, message, tags, sendCallback);
+    }
+
+
 }
