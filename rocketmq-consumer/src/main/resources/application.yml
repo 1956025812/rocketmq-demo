@@ -15,5 +15,5 @@ rocketmq:
     compress-message-body-threshold: 4096
     max-message-size: 4194304
     retry-next-server: true
-    retry-times-when-send-async-failed: 0
-    retry-times-when-send-failed: 0
+    retry-times-when-send-async-failed: 3
+    retry-times-when-send-failed: 3

@@ -1,4 +1,4 @@
-package com.yss.mq.producer.ordermanager.entity;
+package com.yss.mq.producer.manager.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

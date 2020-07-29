@@ -23,6 +23,7 @@ public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
 
     @Override
     public void onMessage(MessageExt messageExt) {
+//        System.out.println(1/0);
         log.info("收到的message对象为：{}， body为：{}", messageExt.toString(), new String(messageExt.getBody()));
     }
 

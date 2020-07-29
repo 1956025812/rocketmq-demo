@@ -2,7 +2,7 @@ package com.yss.mq.producer;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yss.mq.producer.constant.MqEnum;
-import com.yss.mq.producer.ordermanager.util.MqUtil;
+import com.yss.mq.producer.manager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.junit.Test;
@@ -62,6 +62,5 @@ public class MqProducerTest {
             this.mqUtil.syncSendOrder(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), String.format("syncSendOrder消息：%s", i));
         }
     }
-
 
 }

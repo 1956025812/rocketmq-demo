@@ -1,7 +1,8 @@
-package com.yss.mq.producer.ordermanager.util;
+package com.yss.mq.producer.manager.util;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -108,4 +109,20 @@ public class MqUtil {
     }
 
 
+    /**
+     * asyncSend发送
+     *
+     * @param tags         tags
+     * @param keys         keys
+     * @param content      内容
+     * @param sendCallback 回调事件
+     */
+    public void asyncSend(String tags, String keys, String content, SendCallback sendCallback) {
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
+        message.getProperties().put("content", content);
+        log.info("发送asyncSend消息，destination为：{}，keys为：{}， message为：{}, content为: {}", destination, keys,
+                JSONObject.toJSONString(message), JSONObject.toJSONString(content));
+        this.rocketMQTemplate.asyncSend(destination, message, sendCallback);
+    }
 }
