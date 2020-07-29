@@ -91,4 +91,21 @@ public class MqUtil {
     }
 
 
+    /**
+     * syncSend顺序发送, 指定topic和tags和keys
+     *
+     * @param tags    tags
+     * @param keys    keys
+     * @param content 内容
+     */
+    public SendResult syncSendOrder(String tags, String keys, String content) {
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        Message message = new Message(this.springApplicationName, tags, keys, content.getBytes());
+        message.getProperties().put("content", content);
+        log.info("发送syncSendOrder消息，destination为：{}，keys为：{}， message为：{}, content为: {}", destination, keys,
+                JSONObject.toJSONString(message), JSONObject.toJSONString(content));
+        return this.rocketMQTemplate.syncSendOrderly(destination, message, keys);
+    }
+
+
 }

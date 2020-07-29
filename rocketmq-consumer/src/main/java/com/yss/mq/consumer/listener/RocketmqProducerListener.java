@@ -2,6 +2,7 @@ package com.yss.mq.consumer.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer")
+@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer", consumeMode = ConsumeMode.ORDERLY)
 public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
 
     @Override
