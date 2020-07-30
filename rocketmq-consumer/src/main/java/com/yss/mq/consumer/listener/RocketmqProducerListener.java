@@ -1,6 +1,7 @@
 package com.yss.mq.consumer.listener;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -23,6 +24,10 @@ public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
 
     @Override
     public void onMessage(MessageExt messageExt) {
+//        if(messageExt.getReconsumeTimes() == 3) {
+//            log.info("重试打到3次，不再重试, 自己做操作处理");
+//            return;
+//        }
 //        System.out.println(1/0);
         log.info("收到的message对象为：{}， body为：{}", messageExt.toString(), new String(messageExt.getBody()));
     }
