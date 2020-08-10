@@ -47,8 +47,8 @@ public class MqProducerTest {
     public void testSyncSend() {
 
 //        // 同步发送单条
-//        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
-//        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
+        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
+        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
 //
 //        // 同步发送多条
 //        List<String> contentList = new ArrayList<>();
@@ -58,9 +58,9 @@ public class MqProducerTest {
 //        log.info("sendResult2: {}", JSONObject.toJSONString(sendResult2));
 
         // 同步顺序发送
-        for (int i = 1; i <= 5; i++) {
-            this.mqUtil.syncSendOrder(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), String.format("syncSendOrder消息：%s", i));
-        }
+//        for (int i = 1; i <= 5; i++) {
+//            this.mqUtil.syncSendOrder(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), String.format("syncSendOrder消息：%s", i));
+//        }
     }
 
 }
