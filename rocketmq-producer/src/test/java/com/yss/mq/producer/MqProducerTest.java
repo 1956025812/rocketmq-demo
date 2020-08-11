@@ -2,6 +2,7 @@ package com.yss.mq.producer;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yss.mq.producer.constant.MqEnum;
+import com.yss.mq.producer.manager.entity.Goods;
 import com.yss.mq.producer.manager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -37,6 +38,7 @@ public class MqProducerTest {
     @Test
     public void testSendOneWay() {
         this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), "sendOneWay消息：使用默认topic并指定topic和keys");
+        this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), new Goods(1, "商品名称"));
     }
 
 
