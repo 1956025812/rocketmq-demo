@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer", consumeMode = ConsumeMode.CONCURRENTLY)
+@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer", consumeMode = ConsumeMode.ORDERLY)
 public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
 
     @Override

@@ -1,6 +1,7 @@
 package com.yss.mq.producer.manager.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yss.mq.producer.manager.entity.Goods;
 import com.yss.mq.producer.manager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendCallback;
@@ -32,7 +33,7 @@ public class AsyncController {
      */
     @RequestMapping("/sendAsyncSend")
     public void sendAsyncSend() {
-        this.mqUtil.asyncSend("tags001", "keys001", "异步消息", new SendCallback() {
+        this.mqUtil.asyncSend("tags_async_send", "keys_async_send", new Goods(1, "商品名称1"), new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
                 log.info("发送异步消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
@@ -48,19 +49,20 @@ public class AsyncController {
 
     /**
      * 测试路径： http://localhost:8888/rocketmq-producer/async/sendAsyncSendOrderly
+     * TODO 异步的顺序消息有问题
      */
     @RequestMapping("/sendAsyncSendOrderly")
     public void sendAsyncSendOrderly() {
         for (int i = 1; i <= 5; i++) {
-            this.mqUtil.asyncSendOrderly("tags002", String.format("异步消息: %s", i), new SendCallback() {
+            this.mqUtil.asyncSendOrderly("tags_async_send_orderly", "该批次统一的hashKey", new Goods(i, String.format("商品名称-%s", i)), new SendCallback() {
                 @Override
                 public void onSuccess(SendResult sendResult) {
-                    log.info("发送异步消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
+                    log.info("发送异步顺序消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
                 }
 
                 @Override
                 public void onException(Throwable throwable) {
-                    log.error("发送异步消息失败", throwable);
+                    log.error("发送异步顺序消息失败", throwable);
                 }
             });
         }

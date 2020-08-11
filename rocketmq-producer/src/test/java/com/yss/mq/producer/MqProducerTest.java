@@ -38,31 +38,45 @@ public class MqProducerTest {
     @Test
     public void testSendOneWay() {
         this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), "sendOneWay消息：使用默认topic并指定topic和keys");
-        this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), new Goods(1, "商品名称"));
+        this.mqUtil.sendOneWay(MqEnum.SEND_ONE_WAY_WITH_KEYS.getTags(), MqEnum.SEND_ONE_WAY_WITH_KEYS.getKeys(), new Goods(1, "商品名称1"));
     }
 
 
     /**
-     * syncSend方式
+     * syncSend方式: 同步发送单条
      */
     @Test
-    public void testSyncSend() {
-
-//        // 同步发送单条
-        SendResult sendResult1 = this.mqUtil.syncSend(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), "syncSend消息：使用默认topic并指定topic和keys");
-        log.info("sendResult1: {}", JSONObject.toJSONString(sendResult1));
-//
-//        // 同步发送多条
-//        List<String> contentList = new ArrayList<>();
-//        contentList.add("syncSend消息1");
-//        contentList.add("syncSend消息2");
-//        SendResult sendResult2 = this.mqUtil.sycnSendBatch(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), contentList);
-//        log.info("sendResult2: {}", JSONObject.toJSONString(sendResult2));
-
-        // 同步顺序发送
-//        for (int i = 1; i <= 5; i++) {
-//            this.mqUtil.syncSendOrder(MqEnum.SYNC_SEND_WITH_KEYS.getTags(), MqEnum.SYNC_SEND_WITH_KEYS.getKeys(), String.format("syncSendOrder消息：%s", i));
-//        }
+    public void testSyncSendSingle() {
+        SendResult sendResult = this.mqUtil.syncSend("tags_sync_send_single", "keys_sync_send_single", new Goods(2, "商品名称2"));
+        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
     }
+
+
+    /**
+     * syncSend方式：同步发送多条
+     */
+    @Test
+    public void testSyncSendBatch() {
+        List<Object> goodsList = new ArrayList<>(3);
+        goodsList.add(new Goods(1, "商品名称1"));
+        goodsList.add(new Goods(2, "商品名称2"));
+        goodsList.add(new Goods(3, "商品名称3"));
+        SendResult sendResult = this.mqUtil.syncSendBatch("tags_sync_send_batch", "keys_sync_send_batch", goodsList);
+        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
+    }
+
+
+    /**
+     * syncSend方式：同步顺序发送
+     */
+    @Test
+    public void testSyncSendOrderly() {
+        for (int i = 1; i <= 5; i++) {
+            Goods goods = new Goods(i, String.format("商品名称-%s", i));
+            SendResult sendResult = this.mqUtil.syncSendOrderly("tags_sync_send_orderly", "keys_sync_send_orderly", "该批次统一的hashKey", goods);
+            log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
+        }
+    }
+
 
 }
