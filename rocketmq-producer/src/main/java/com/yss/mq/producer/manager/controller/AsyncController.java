@@ -1,6 +1,7 @@
 package com.yss.mq.producer.manager.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yss.mq.producer.constant.DelayLevel;
 import com.yss.mq.producer.manager.entity.Goods;
 import com.yss.mq.producer.manager.util.MqUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +85,7 @@ public class AsyncController {
             public void onException(Throwable throwable) {
                 log.error("发送异步延时消息失败", throwable);
             }
-        }, 500, 3);
+        }, 500, DelayLevel.THIRTY_SECOND.getKey());
     }
 
 

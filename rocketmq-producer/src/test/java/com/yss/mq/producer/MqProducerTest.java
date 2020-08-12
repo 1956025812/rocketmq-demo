@@ -1,6 +1,7 @@
 package com.yss.mq.producer;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yss.mq.producer.constant.DelayLevel;
 import com.yss.mq.producer.constant.MqEnum;
 import com.yss.mq.producer.manager.entity.Goods;
 import com.yss.mq.producer.manager.util.MqUtil;
@@ -72,7 +73,7 @@ public class MqProducerTest {
     @Test
     public void testSyncSendDelay() {
         Goods goods = new Goods(1, "商品名称1");
-        SendResult sendResult = this.mqUtil.syncSendDelay("tags_sync_send_delay", "keys_sync_send_delay", goods, 500, 4);
+        SendResult sendResult = this.mqUtil.syncSendDelay("tags_sync_send_delay", "keys_sync_send_delay", goods, 500, DelayLevel.TEN_SECOND.getKey());
         log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
     }
 
