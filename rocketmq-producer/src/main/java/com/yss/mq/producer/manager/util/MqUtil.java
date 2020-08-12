@@ -21,7 +21,6 @@ import java.util.List;
  * 使用规范说明：
  * 1. 官方建议： 一个项目只有一个groupName和一个topic, 都采用项目名称
  * 2. 优先使用tags, tags无法区分再使用keys做细分
- * 3. obj统一使用字符串，如果是对象，则采用json字符串
  *
  * </p>
  *
