@@ -69,4 +69,23 @@ public class AsyncController {
     }
 
 
+    /**
+     * 测试路径： http://localhost:8888/rocketmq-producer/async/sendAsyncDelay
+     */
+    @RequestMapping("/sendAsyncDelay")
+    public void sendAsyncDelay() {
+        this.mqUtil.asyncSendDelay("tags_async_send_delay", "keys_async_send_delay", new Goods(1, "商品名称1"), new SendCallback() {
+            @Override
+            public void onSuccess(SendResult sendResult) {
+                log.info("发送异步延时消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                log.error("发送异步延时消息失败", throwable);
+            }
+        }, 500, 3);
+    }
+
+
 }
