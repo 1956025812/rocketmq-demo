@@ -54,7 +54,7 @@ public class AsyncController {
     @RequestMapping("/sendAsyncSendOrderly")
     public void sendAsyncSendOrderly() {
         for (int i = 1; i <= 5; i++) {
-            this.mqUtil.asyncSendOrderly("tags_async_send_orderly", "该批次统一的hashKey", new Goods(i, String.format("商品名称-%s", i)), new SendCallback() {
+            this.mqUtil.asyncSendOrderly("tags_async_send_orderly", "keys_async_send_orderly", "该批次统一的hashKey", new Goods(i, String.format("商品名称-%s", i)), new SendCallback() {
                 @Override
                 public void onSuccess(SendResult sendResult) {
                     log.info("发送异步顺序消息成功，sendResult: {}", JSONObject.toJSONString(sendResult));
