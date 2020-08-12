@@ -66,7 +66,6 @@ public class MqUtil {
     public SendResult syncSend(String tags, String keys, Object obj) {
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         Message<Object> message = MessageBuilder.withPayload(obj).setHeader(RocketMQHeaders.KEYS, keys).build();
-        message.getHeaders().put(RocketMQHeaders.KEYS, keys);
         log.info("发送syncSend消息，destination为：{}，keys为：{}，message为：{}, obj: {}", destination, keys,
                 JSONObject.toJSONString(message), JSONObject.toJSONString(obj));
         return this.rocketMQTemplate.syncSend(destination, message);
@@ -106,7 +105,6 @@ public class MqUtil {
     public SendResult syncSendOrderly(String tags, String keys, String hashKey, Object obj) {
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         Message<Object> message = MessageBuilder.withPayload(obj).setHeader(RocketMQHeaders.KEYS, keys).build();
-        message.getHeaders().put(RocketMQHeaders.KEYS, keys);
         log.info("发送syncSendOrder消息，destination为：{}，keys为：{}， message为：{}, obj为: {}", destination, keys,
                 JSONObject.toJSONString(message), JSONObject.toJSONString(obj));
         return this.rocketMQTemplate.syncSendOrderly(destination, message, hashKey);
@@ -124,7 +122,6 @@ public class MqUtil {
     public void asyncSend(String tags, String keys, Object obj, SendCallback sendCallback) {
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         Message<Object> message = MessageBuilder.withPayload(obj).setHeader(RocketMQHeaders.KEYS, keys).build();
-        message.getHeaders().put(RocketMQHeaders.KEYS, keys);
         log.info("发送asyncSend消息，destination为：{}，keys为：{}， message为：{}, obj为: {}", destination, keys,
                 JSONObject.toJSONString(message), JSONObject.toJSONString(obj));
         this.rocketMQTemplate.asyncSend(destination, message, sendCallback);
@@ -144,7 +141,6 @@ public class MqUtil {
     public void asyncSendOrderly(String tags, String keys, String hashKey, Object obj, SendCallback sendCallback) {
         String destination = String.format("%s:%s", this.springApplicationName, tags);
         Message<Object> message = MessageBuilder.withPayload(obj).setHeader(RocketMQHeaders.KEYS, keys).build();
-        message.getHeaders().put(RocketMQHeaders.KEYS, keys);
         log.info("发送asyncSendOrderly消息，destination为：{}，message为：{}, obj为: {}", destination,
                 JSONObject.toJSONString(message), JSONObject.toJSONString(obj));
         this.rocketMQTemplate.asyncSendOrderly(destination, message, hashKey, sendCallback);
