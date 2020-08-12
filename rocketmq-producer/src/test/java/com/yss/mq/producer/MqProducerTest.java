@@ -67,6 +67,17 @@ public class MqProducerTest {
 
 
     /**
+     * syncSend方式: 发送延迟消息
+     */
+    @Test
+    public void testSyncSendDelay() {
+        Goods goods = new Goods(1, "商品名称1");
+        SendResult sendResult = this.mqUtil.syncSendDelay("tags_sync_send_delay", "keys_sync_send_delay", goods, 500, 4);
+        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
+    }
+
+
+    /**
      * syncSend方式：同步顺序发送
      */
     @Test
@@ -76,17 +87,6 @@ public class MqProducerTest {
             SendResult sendResult = this.mqUtil.syncSendOrderly("tags_sync_send_orderly", "keys_sync_send_orderly", "该批次统一的hashKey", goods);
             log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
         }
-    }
-
-
-    /**
-     * 发送延迟消息
-     */
-    @Test
-    public void testSyncSendDelay() {
-        Goods goods = new Goods(1, "商品名称1");
-        SendResult sendResult = this.mqUtil.syncSendDelay("tags_sync_send_delay", "keys_sync_send_delay", goods, 500, 4);
-        log.info("sendResult: {}", JSONObject.toJSONString(sendResult));
     }
 
 
