@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "syncSendSingleListener", topic = "rocketmq-producer", selectorExpression = "tags_sync_send_single")
+@RocketMQMessageListener(consumerGroup = "tagsSyncSendSingleListener", topic = "rocketmq-producer", selectorExpression = "tags_sync_send_single")
 public class SyncSendSingleListener implements RocketMQListener<MessageExt> {
 
     @Override

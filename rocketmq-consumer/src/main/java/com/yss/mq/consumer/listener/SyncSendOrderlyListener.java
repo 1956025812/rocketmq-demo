@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "syncSendOrderlyListener", topic = "rocketmq-producer", selectorExpression = "tags_sync_send_orderly", consumeMode = ConsumeMode.ORDERLY)
+@RocketMQMessageListener(consumerGroup = "tagsSyncSendOrderlyListener", topic = "rocketmq-producer", selectorExpression = "tags_sync_send_orderly", consumeMode = ConsumeMode.ORDERLY)
 public class SyncSendOrderlyListener implements RocketMQListener<MessageExt> {
 
     @Override

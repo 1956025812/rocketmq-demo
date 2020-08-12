@@ -79,4 +79,14 @@ public class MqProducerTest {
     }
 
 
+    /**
+     * 发送延迟消息
+     */
+    @Test
+    public void testSyncSendDelay() {
+        Goods goods = new Goods(1, "商品名称1");
+        this.mqUtil.syncSendDelay("tags_sync_send_delay", "keys_sync_send_delay", goods, 500, 4);
+    }
+
+
 }

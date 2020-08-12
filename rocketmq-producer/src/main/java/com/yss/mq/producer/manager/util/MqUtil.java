@@ -146,4 +146,23 @@ public class MqUtil {
     }
 
 
+    /**
+     * syncSend发送延时消息
+     *
+     * @param tags       tags
+     * @param keys       keys
+     * @param obj        内容
+     * @param timeout    超时时间
+     * @param delayLevel 延时级别： 默认 1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h 延迟级别下标从1开始 默认是0 不延时
+     * @return SendResult
+     */
+    public SendResult syncSendDelay(String tags, String keys, Object obj, long timeout, int delayLevel) {
+        String destination = String.format("%s:%s", this.springApplicationName, tags);
+        Message<Object> message = MessageBuilder.withPayload(obj).setHeader(RocketMQHeaders.KEYS, keys).build();
+        log.info("发送syncSend消息，destination为：{}，keys为：{}，message为：{}, obj: {}", destination, keys,
+                JSONObject.toJSONString(message), JSONObject.toJSONString(obj));
+        return this.rocketMQTemplate.syncSend(destination, message, timeout, delayLevel);
+    }
+
+
 }
