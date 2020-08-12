@@ -85,7 +85,6 @@ public class MqUtil {
         List<Message> messageList = new ArrayList<>(objList.size());
         objList.forEach(eachObj -> {
             Message<Object> eachMessage = MessageBuilder.withPayload(eachObj).setHeader(RocketMQHeaders.KEYS, keys).build();
-            eachMessage.getHeaders().put(RocketMQHeaders.KEYS, keys);
             messageList.add(eachMessage);
         });
         log.info("发送syncSend消息，destination为：{}，keys为：{}， messageList为：{}, objList为: {}", destination, keys,

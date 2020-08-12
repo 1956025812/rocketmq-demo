@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * rocketMq-producer项目的监听器
- * 官方建议： 一个group对应一个topic  子业务用tags和keys做区分
+ * 监听TOPIC为：rocketmq-producer 下的TAGS为：tags_sync_send_orderly 下的消息
  * </p>
  *
  * @author DuXueBo
@@ -18,11 +17,11 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = "rocketmq-producer", topic = "rocketmq-producer", consumeMode = ConsumeMode.ORDERLY)
-public class RocketmqProducerListener implements RocketMQListener<MessageExt> {
+@RocketMQMessageListener(consumerGroup = "syncSendOrderlyListener", topic = "rocketmq-producer", selectorExpression = "tags_sync_send_orderly", consumeMode = ConsumeMode.ORDERLY)
+public class SyncSendOrderlyListener implements RocketMQListener<MessageExt> {
 
     @Override
     public void onMessage(MessageExt messageExt) {
-        log.info("收到的message对象为：{}， body为：{}", messageExt.toString(), new String(messageExt.getBody()));
+        log.info("监听TAGS为：tags_sync_send_orderly 发送过来的message对象为：{}， body为：{}", messageExt.toString(), new String(messageExt.getBody()));
     }
 }
